@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "description": "U.S. tariff layers on goods of Canadian origin. Exposure on a shipment is the sum of every layer that applies. CUSMA qualification removes the MFN layer; it does NOT remove Section 232 or Section 338 duties.",
+    "ratesAsOf": "2026-10-28",
+    "status": "DRAFT - assembled from public secondary sources (law-firm and logistics advisories). Confirm every rate and HTS list against the Federal Register, CBP CSMS messages and the Trade Commissioner Service before launch, then on a fixed refresh schedule.",
+    "verified": false
+  },
+  "mfn": {
+    "note": "U.S. general (MFN) column-1 duty rates. Placeholder sample values by HS prefix for engine testing only. Production must load the full HTSUS from USITC (hts.usitc.gov) and match at 8-10 digits.",
+    "default": null,
+    "rates": [
+      { "hs": "3923", "rate": 3.0, "description": "Plastic packaging articles" },
+      { "hs": "3926", "rate": 5.3, "description": "Other articles of plastics" },
+      { "hs": "4418", "rate": 3.2, "description": "Builders' joinery and carpentry of wood" },
+      { "hs": "7308", "rate": 0.0, "description": "Structures of iron or steel" },
+      { "hs": "8421", "rate": 2.0, "description": "Filtering or purifying machinery" },
+      { "hs": "8479", "rate": 2.5, "description": "Machines with individual functions n.e.s." },
+      { "hs": "9403", "rate": 0.0, "description": "Other furniture" },
+      { "hs": "2106", "rate": 6.4, "description": "Food preparations n.e.s." }
+    ]
+  },
+  "programs": [
+    {
+      "id": "s232_steel",
+      "name": "Section 232: steel and derivatives",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 50,
+      "hs": ["72", "7301", "7302", "7304", "7305", "7306", "7307", "7308", "7309", "7310", "7311", "7312", "7313", "7314", "7315", "7316", "7317", "7318", "7320", "7326"],
+      "cusmaRelief": "none",
+      "basis": "Steel content value for derivative products; full value for listed steel articles.",
+      "verified": false
+    },
+    {
+      "id": "s232_aluminum",
+      "name": "Section 232: aluminum and derivatives",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 50,
+      "hs": ["76"],
+      "cusmaRelief": "none",
+      "basis": "Aluminum content value for derivative products.",
+      "verified": false
+    },
+    {
+      "id": "s232_copper",
+      "name": "Section 232: semi-finished copper",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 50,
+      "hs": ["7407", "7408", "7409", "7410", "7411", "7412", "7413"],
+      "cusmaRelief": "none",
+      "verified": false
+    },
+    {
+      "id": "s232_lumber",
+      "name": "Section 232: softwood timber and lumber",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 10,
+      "hs": ["4407"],
+      "cusmaRelief": "none",
+      "note": "Separate from long-running softwood lumber anti-dumping/countervailing duties, which are company-specific and not modelled here.",
+      "verified": false
+    },
+    {
+      "id": "s232_furniture",
+      "name": "Section 232: upholstered furniture, kitchen cabinets and vanities",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 25,
+      "hs": ["940161", "940171", "940340", "94036080"],
+      "cusmaRelief": "none",
+      "note": "Advisories report scheduled increases (30% upholstered, 50% cabinets/vanities) with conflicting effective dates.",
+      "verified": false
+    },
+    {
+      "id": "s232_autos",
+      "name": "Section 232: automobiles and auto parts",
+      "authority": "Section 232, Trade Expansion Act of 1962",
+      "rate": 25,
+      "hs": ["8703", "8704", "8708"],
+      "cusmaRelief": "partial",
+      "note": "CUSMA-qualifying vehicles pay on non-U.S. content; qualifying parts have had exemptions. Route to expert review.",
+      "verified": false
+    },
+    {
+      "id": "s338_canada",
+      "name": "Section 338: additional duties on listed Canadian goods",
+      "authority": "Section 338, Tariff Act of 1930 (proclamations of July 20, 2026)",
+      "rate": 50,
+      "effective": "2026-08-22",
+      "hs": ["0401", "0402", "0403", "0404", "0405", "0406", "2203", "2204", "2205", "2206", "2208"],
+      "matchConfidence": "indicative",
+      "cusmaRelief": "none",
+      "excludedIfProgramApplies": ["s232_steel", "s232_aluminum", "s232_copper", "s232_lumber", "s232_furniture", "s232_autos"],
+      "note": "Three proclamations covering roughly 569 HTSUS lines across alcohol, dairy and other goods (reported to include some wood products, furniture, textiles, metals and machinery). The prefixes here are indicative only; production must load the exact HTSUS 8-digit annex lists.",
+      "verified": false
+    }
+  ],
+  "inactive": [
+    {
+      "id": "ieepa_canada",
+      "name": "IEEPA 'fentanyl' tariff on non-CUSMA Canadian goods (35%)",
+      "status": "Invalidated by the U.S. Supreme Court (Learning Resources v. Trump, Feb 20, 2026); collection stopped Feb 24, 2026. Refund litigation ongoing."
+    },
+    {
+      "id": "s122_global",
+      "name": "Section 122 temporary import surcharge (10%)",
+      "status": "Started Feb 24, 2026 with a 150-day statutory limit (around July 2026) unless extended by Congress. Current status unconfirmed."
+    }
+  ]
+}

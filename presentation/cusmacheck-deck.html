@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUSMAcheck Pitch Deck</title>
+<style>
+:root{
+  --bg:#f6f5f1;--surface:#fff;--text:#1b1c1e;--muted:#5f6268;--border:#dddbd4;
+  --accent:#b3261e;--accent-soft:#f6e3e1;--ok:#1d6b3a;--ok-soft:#e5f2e9;--warn:#8a5a00;--warn-soft:#fbf0dc;
+  --bar:#b3261e;--bar2:#d9a39e;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131416;--surface:#1c1e21;--text:#ecebe7;--muted:#a3a6ac;--border:#33363b;
+  --accent:#ef6b62;--accent-soft:#3b1d1b;--ok:#7fd09b;--ok-soft:#15301e;--warn:#f2c46b;--warn-soft:#3a2c12;--bar:#ef6b62;--bar2:#6b3a37;
+}}
+:root[data-theme="dark"]{
+  --bg:#131416;--surface:#1c1e21;--text:#ecebe7;--muted:#a3a6ac;--border:#33363b;
+  --accent:#ef6b62;--accent-soft:#3b1d1b;--ok:#7fd09b;--ok-soft:#15301e;--warn:#f2c46b;--warn-soft:#3a2c12;--bar:#ef6b62;--bar2:#6b3a37;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.deck{height:100%;overflow:hidden;position:relative}
+.slide{position:absolute;inset:0;padding:clamp(20px,5vw,64px) clamp(16px,6vw,88px) 72px;display:none;flex-direction:column;overflow-y:auto}
+.slide.active{display:flex}
+.kicker{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;margin:0 0 10px}
+h1{font-size:clamp(2rem,5.5vw,3.6rem);line-height:1.05;margin:0 0 16px;letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem,3.4vw,2.3rem);line-height:1.15;margin:0 0 20px;letter-spacing:-.01em;max-width:28ch}
+p.lead{font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);max-width:60ch;line-height:1.45}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
+.card h3{margin:0 0 6px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);line-height:1.45;font-size:.95rem}
+.big{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:750;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;font-size:clamp(.78rem,1.5vw,.95rem);background:var(--surface);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:600}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.bad{background:var(--accent-soft);color:var(--accent)}.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.bars{display:flex;flex-direction:column;gap:9px;max-width:760px}
+.bar{display:grid;grid-template-columns:minmax(120px,240px) 1fr 40px;align-items:center;gap:10px;font-size:.92rem}
+.bar .track{height:16px;background:var(--border);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--bar2)}
+.bar.top .fill{background:var(--bar)}
+.bar .v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.flow .arrow{align-self:center;color:var(--muted);font-size:1.6rem}
+@media (max-width:720px){.flow{grid-template-columns:1fr}.flow .arrow{transform:rotate(90deg);justify-self:center}}
+ul.clean{padding-left:1.1em;line-height:1.6;max-width:70ch}
+.timeline{border-left:3px solid var(--accent);padding-left:18px;display:flex;flex-direction:column;gap:14px;max-width:760px}
+.timeline div b{display:block;color:var(--accent);font-size:.85rem}
+.note{font-size:.8rem;color:var(--muted);margin-top:auto;padding-top:16px}
+nav.ctl{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:linear-gradient(transparent,var(--bg) 40%);gap:8px}
+nav.ctl button{font:inherit;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 14px;cursor:pointer}
+.progress{flex:1;height:3px;background:var(--border);border-radius:2px;margin:0 12px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;min-width:52px;text-align:right}
+@media print{
+  nav.ctl{display:none}.deck{height:auto;overflow:visible}
+  .slide{position:relative;display:flex!important;page-break-after:always;min-height:100vh}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide">
+  <p class="kicker">CUSMAcheck · October 2026</p>
+  <h1>Know if your product qualifies for CUSMA and what the U.S. will actually charge, in 60 seconds.</h1>
+  <p class="lead">A self-serve web app for Canada's ~41,000 SME exporters to the U.S. It replaces a $150–400/hr broker consultation for routine checks.</p>
+  <p class="note">Prepared for Sastry's product portfolio · Canada expansion · Logic-first, zero-AI core</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="kicker">Canada in 60 seconds</p>
+  <h2>Not "a smaller U.S.": three facts shape every opportunity</h2>
+  <div class="grid">
+    <div class="card"><div class="big">10</div><h3>economies stitched together</h3><p>Provinces control employment law, sales tax, privacy, licensing and liquor. Legal in Ontario can mean illegal in Quebec.</p></div>
+    <div class="card"><div class="big">~86%</div><h3>of exporters sell to one country</h3><p>U.S. trade policy hits Canadian SMEs within weeks. Over 97% of exporters are SMEs.</p></div>
+    <div class="card"><div class="big">5–6</div><h3>banks run the system</h3><p>Oligopolies in banking, telecom and airlines, plus quota-managed dairy. Incumbents serve large firms; small businesses fall through the gaps.</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="kicker">Comparison</p>
+  <h2>How Canada differs from the U.S. and India</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Dimension</th><th>Canada</th><th>United States</th><th>India</th></tr></thead>
+    <tbody>
+      <tr><td>Rule-making</td><td>Provinces hold real power; internal trade barriers</td><td>Strong federal commerce rules</td><td>Centralized; one GST since 2017</td></tr>
+      <tr><td>Language</td><td>French legally required in Quebec (Bill 96, fines)</td><td>No mandate</td><td>Market preference, rarely fined</td></tr>
+      <tr><td>Sales tax</td><td>4 regimes: GST, HST, PST, QST</td><td>State sales tax, no VAT</td><td>Single GST</td></tr>
+      <tr><td>Trade</td><td>Very high, concentrated on U.S.</td><td>Large, mostly domestic</td><td>Moderate, diversified</td></tr>
+      <tr><td>Mortgages</td><td>5-year terms, renew on a fixed date</td><td>30-year fixed</td><td>Mostly floating</td></tr>
+      <tr><td>Channels</td><td>Email, LinkedIn, associations, accountants</td><td>Similar, more crowded</td><td>WhatsApp/Telegram, mobile-first</td></tr>
+      <tr><td>Payments</td><td>Stripe (CAD); Interac</td><td>Stripe</td><td>Razorpay, UPI</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="kicker">2026: why now</p>
+  <h2>The tariff rules changed four times this year</h2>
+  <div class="timeline">
+    <div><b>Feb 20</b>U.S. Supreme Court strikes down the IEEPA tariffs (including the 35% on non-CUSMA Canadian goods). A temporary 10% Section 122 surcharge follows.</div>
+    <div><b>Jul 1</b>The U.S. declines to renew CUSMA at the joint review. The agreement stays in force; annual reviews begin.</div>
+    <div><b>Jul 20 → ~Aug 22</b>Section 338 proclamations add <b style="display:inline;color:inherit">50% duties that CUSMA does not remove</b> on ~569 lines: alcohol, dairy and more (~$20B).</div>
+    <div><b>Ongoing</b>Section 232 tariffs: steel, aluminum, copper 50%; lumber 10%; furniture and cabinets 25%; autos 25%. CUSMA does not remove these either.</div>
+  </div>
+  <p class="note">Sources: law-firm and logistics advisories (White &amp; Case, Holland &amp; Knight, C.H. Robinson, McMillan, Blakes). See docs/sources.md. Dates vary across sources; verify before external use.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="kicker">Sector scan</p>
+  <h2>Where Canada's fragmentation creates buildable gaps</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Field</th><th>Canada-unique driver</th><th>Who serves it today</th><th>Gap → simple product</th></tr></thead>
+    <tbody>
+      <tr><td>Export to U.S.</td><td>CUSMA + 232/338 stacking</td><td>Brokers $150–400/hr, govt workshops (~700 firms)</td><td><b>CUSMAcheck</b>: verdict + full duty stack</td></tr>
+      <tr><td>Import from U.S.</td><td>Counter-tariff surtaxes + remission</td><td>Brokers, CBSA pages</td><td><b>Surtax Remission Finder</b></td></tr>
+      <tr><td>Retail / web</td><td>Quebec Bill 96; record 11,125 complaints</td><td>Enterprise translation, law firms</td><td><b>Bill 96 Site Audit</b></td></tr>
+      <tr><td>E-commerce tax</td><td>GST/HST/PST/QST registration</td><td>Avalara, Stripe Tax (after registration)</td><td><b>Registration Checker</b></td></tr>
+      <tr><td>Employment</td><td>10 provincial codes, QPP</td><td>Payroll software, HR lawyers</td><td>Province Rules Checker</td></tr>
+      <tr><td>Mortgages</td><td>~1.15M renewals in 2026</td><td>Banks, brokers, Ratehub</td><td>Renewal Triage (B2C, low WTP)</td></tr>
+      <tr><td>Banking, immigration, health</td><td>Oligopolies, licensing</td><td>Well-funded incumbents</td><td>Avoid</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="kicker">Ranking</p>
+  <h2>CUSMAcheck scores highest of 9 candidates</h2>
+  <div class="bars" role="img" aria-label="Opportunity scores out of 30">
+    <div class="bar top"><span>CUSMAcheck</span><div class="track"><div class="fill" style="width:83%"></div></div><span class="v">25</span></div>
+    <div class="bar"><span>Bill 96 Site Audit</span><div class="track"><div class="fill" style="width:77%"></div></div><span class="v">23</span></div>
+    <div class="bar"><span>Surtax Remission Finder</span><div class="track"><div class="fill" style="width:77%"></div></div><span class="v">23</span></div>
+    <div class="bar"><span>Sales-tax Registration</span><div class="track"><div class="fill" style="width:77%"></div></div><span class="v">23</span></div>
+    <div class="bar"><span>Mortgage Renewal Triage</span><div class="track"><div class="fill" style="width:63%"></div></div><span class="v">19</span></div>
+    <div class="bar"><span>Province Rules Checker</span><div class="track"><div class="fill" style="width:60%"></div></div><span class="v">18</span></div>
+    <div class="bar"><span>Grant / SR&amp;ED Pre-check</span><div class="track"><div class="fill" style="width:57%"></div></div><span class="v">17</span></div>
+    <div class="bar"><span>Immigration tools</span><div class="track"><div class="fill" style="width:43%"></div></div><span class="v">13</span></div>
+    <div class="bar"><span>Fintech</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="v">9</span></div>
+  </div>
+  <p class="note">Score /30 = urgency + willingness to pay + logic fit + low competition + low liability + build speed (each 1–5).</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="kicker">The problem</p>
+  <h2>"Does my product qualify, and what will I actually pay?" Nobody answers this cheaply.</h2>
+  <div class="grid">
+    <div class="card"><h3>Self-certification</h3><p>Exporters certify CUSMA origin themselves. No form is required, so many don't know whether they qualify, and they either overpay duty or pay a broker for every new SKU.</p></div>
+    <div class="card"><h3>Stacked tariffs</h3><p>In 2026, qualifying no longer means duty-free. Section 232 and Section 338 apply on top, and the lists keep changing.</p></div>
+    <div class="card"><h3>Expensive help</h3><p>Brokers bill $150–400/hr. The government tool only looks up rates. Export software assumes you already know you qualify.</p></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="kicker">The solution</p>
+  <h2>CUSMAcheck: structured input, rules engine, a verdict in dollars</h2>
+  <div class="flow">
+    <div class="card"><h3>1 · Enter</h3><p>HS code, selling price, bill of materials (each input's HS code, cost and country of origin), shipment value.</p></div>
+    <div class="arrow">→</div>
+    <div class="card"><h3>2 · Rules engine</h3><p>CUSMA criteria A/B/C/D, tariff-shift test with 10% de minimis, RVC by both methods. No AI: the treaty rules are fixed.</p></div>
+    <div class="arrow">→</div>
+    <div class="card"><h3>3 · Verdict + stack</h3><p>Qualifies or not, with the rule cited. Each U.S. tariff layer, whether CUSMA removes it, and total duty in dollars. Logged for audit.</p></div>
+  </div>
+  <p class="note">v1.1 adds AI only where it helps: plain-English explanations and Certificate of Origin drafting.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="kicker">Live engine output · $25,000 shipment</p>
+  <h2>Qualifying for CUSMA no longer means duty-free</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Product</th><th>CUSMA verdict</th><th>Layers that apply</th><th class="num">U.S. duty</th></tr></thead>
+    <tbody>
+      <tr><td>Oak table, Chinese hinges (9403.60)</td><td><span class="pill ok">Qualifies · B</span></td><td>MFN removed</td><td class="num">$0</td></tr>
+      <tr><td>Steel structure, Canadian steel (7308.90)</td><td><span class="pill ok">Qualifies · C</span></td><td>Section 232 steel 50%</td><td class="num">$12,500</td></tr>
+      <tr><td>Ontario wine (2204.21)</td><td><span class="pill ok">Qualifies · C</span></td><td>Section 338 50%</td><td class="num">$12,500</td></tr>
+      <tr><td>Plastic part, Asian inputs (3926.90)</td><td><span class="pill bad">Does not qualify</span></td><td>MFN 5.3%</td><td class="num">$1,325</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Computed by the engine in this repository using draft rate tables (pending broker verification).</p>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="kicker">Format</p>
+  <h2>A web app, not a Chrome extension</h2>
+  <div class="grid">
+    <div class="card"><h3>Extensions win when…</h3><p>…the pain sits inside a page the user already has open (tender listings, Amazon pages, the GST portal).</p></div>
+    <div class="card"><h3>Here the pain is…</h3><p>…document-in, verdict-out. There is no host page to inject into, so it is a calculator over structured data with saved history.</p></div>
+    <div class="card"><h3>What carries over</h3><p>Node.js on Render, Supabase, Claude via the existing proxy. New: <b>Stripe</b> for CAD billing, since Razorpay does not operate in Canada.</p></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="kicker">Business model</p>
+  <h2>Monthly SaaS that costs less than one broker hour</h2>
+  <div class="grid">
+    <div class="card"><h3>Free</h3><div class="big">$0</div><p>3 checks/month. The "wow" moment and lead funnel.</p></div>
+    <div class="card"><h3>Starter</h3><div class="big">$29</div><p>CAD/month. Unlimited checks, product library, history, exports, <b>Tariff Alerts</b>.</p></div>
+    <div class="card"><h3>Pro</h3><div class="big">$79</div><p>CAD/month. AI explanations, Certificate of Origin, what-if sourcing, 3 seats, Remission Finder.</p></div>
+    <div class="card"><h3>Concierge</h3><div class="big">Per review</div><p>Edge cases (autos, apparel) reviewed by partner brokers, with revenue share.</p></div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="kicker">Market &amp; scenarios (planning assumptions)</p>
+  <h2>A focused market, with break-even at a few dozen subscribers</h2>
+  <div class="grid">
+    <div class="card"><div class="big">~41k</div><h3>exporters to the U.S.</h3><p>~47.9k exporting enterprises (StatCan 2025) × ~86% U.S. share.</p></div>
+    <div class="card"><div class="big">~$11M</div><h3>serviceable ARR</h3><p>~24k in launch chapters × $39 blended ARPU.</p></div>
+    <div class="card"><div class="big">20–52</div><h3>subscribers to break even</h3><p>Fixed costs ~$0.7–1.9k/mo incl. broker data review and E&amp;O insurance.</p></div>
+  </div>
+  <div class="scroll" style="margin-top:16px"><table>
+    <thead><tr><th>Month-12 scenario</th><th class="num">Paying</th><th class="num">MRR</th><th class="num">ARR run-rate</th></tr></thead>
+    <tbody>
+      <tr><td>Conservative</td><td class="num">50</td><td class="num">$1,950</td><td class="num">$23,400</td></tr>
+      <tr><td><b>Base</b></td><td class="num"><b>200</b></td><td class="num"><b>$7,800</b></td><td class="num"><b>$93,600</b></td></tr>
+      <tr><td>Upside</td><td class="num">600</td><td class="num">$23,400</td><td class="num">$280,800</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="kicker">Go-to-market</p>
+  <h2>Go where Canadian SMEs already gather: associations, brokers, search</h2>
+  <div class="grid">
+    <div class="card"><h3>Day 2–3</h3><p>CFIB forums, CME LinkedIn groups, small-business subreddits. Upgrade screen after the 3rd free check. <b>Goal: 1 paid sign-up within 72 hours.</b></p></div>
+    <div class="card"><h3>Weeks 2–6</h3><p>Programmatic SEO: one page per HS heading with its CUSMA rule and current tariff stack. Weekly tariff-change email.</p></div>
+    <div class="card"><h3>Months 2–4</h3><p>Broker partners: they refer small clients, we refer complex cases back. Chambers of commerce and export associations as a member benefit.</p></div>
+    <div class="card"><h3>Months 4–12</h3><p>French UI, Remission Finder, CSV batch upload.</p></div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="kicker">Competition &amp; risk</p>
+  <h2>Clear white space, with risks we design around</h2>
+  <div class="grid">
+    <div class="card"><h3>Alternatives</h3><p>Canada Tariff Finder (rates only) · brokers ($150–400/hr) · export-docs software (forms only) · CUSMA workshops (~700 firms) · enterprise trade suites (priced for large firms).</p></div>
+    <div class="card"><h3>Accuracy risk</h3><p>Advisory disclaimer, audit log, broker-verified rule data, E&amp;O insurance, expert routing for autos and apparel.</p></div>
+    <div class="card"><h3>Volatility risk</h3><p>"Rates as of" on every result; scheduled refresh. Tariff Alerts turn volatility into a reason to subscribe.</p></div>
+    <div class="card"><h3>Treaty risk</h3><p>If CUSMA ends, the tariff-stack calculator still works; reposition as a U.S. duty calculator for Canadian exporters.</p></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="kicker">Status &amp; next steps</p>
+  <h2>Engine built and tested; data verification is the path to launch</h2>
+  <div class="grid">
+    <div class="card"><h3><span class="pill ok">Done</span></h3><ul class="clean"><li>Origin engine (A/B/C/D, RVC, de minimis)</li><li>Tariff stack (MFN + 232 + 338)</li><li>Web app + API + free-tier gate</li><li>Supabase schema, Stripe checkout</li><li>20 automated tests passing</li></ul></div>
+    <div class="card"><h3><span class="pill warn">Launch blockers</span></h3><ul class="clean"><li>Verify Annex 4-B rules for launch chapters</li><li>Load full HTSUS MFN rates + exact 232/338 lists</li><li>Legal review of terms; E&amp;O insurance</li></ul></div>
+    <div class="card"><h3><span class="pill bad">Then</span></h3><ul class="clean"><li>Create Supabase and Stripe, deploy to Render</li><li>Test with 3 real exporter products</li><li>Day 2 outreach → first paid sign-up in 72h</li></ul></div>
+  </div>
+</section>
+
+</div>
+
+<nav class="ctl" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <div class="progress"><i id="bar"></i></div>
+  <span class="count" id="count"></span>
+  <button id="next" aria-label="Next slide">→</button>
+</nav>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  try{var h=parseInt(location.hash.slice(1),10);if(h>0&&h<=slides.length)i=h-1;}catch(e){}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('bar').style.width=((i+1)/slides.length*100)+'%';
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>=0){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);
+  });
+  window.addEventListener('hashchange',function(){var h=parseInt(location.hash.slice(1),10);if(h>0&&h-1!==i)show(h-1)});
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)show(i+(dx<0?1:-1));x0=null});
+  show(i);
+})();
+</script>
+</body>
+</html>

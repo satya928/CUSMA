@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CUSMAcheck</title>
+  <meta name="description" content="Check if your product qualifies for CUSMA duty-free treatment and see your full U.S. tariff exposure in under 60 seconds.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <strong class="brand">CUSMA<span>check</span></strong>
+      <span class="tag">For Canadian exporters to the U.S.</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Does your product qualify for CUSMA, and what will the U.S. actually charge?</h1>
+      <p>Enter the product and its bill of materials. You get the origin verdict, the rule it rests on, and every U.S. tariff layer that still applies — including Section 232 and Section 338 duties that CUSMA does <em>not</em> remove.</p>
+      <p class="rates" id="rates-meta">Loading rate table date…</p>
+    </section>
+
+    <form id="check-form" novalidate>
+      <fieldset>
+        <legend>Finished product</legend>
+        <div class="grid">
+          <label>Product name<input name="productName" placeholder="Oak dining table"></label>
+          <label>HS code (6–10 digits)<input name="hsCode" required inputmode="numeric" placeholder="940360"></label>
+          <label>Selling price per unit (transaction value)<input name="transactionValue" required type="number" min="0" step="0.01" placeholder="500"></label>
+          <label>Net cost per unit <small>(optional)</small><input name="netCost" type="number" min="0" step="0.01"></label>
+          <label>Shipment value <small>(defaults to unit price)</small><input name="shipmentValue" type="number" min="0" step="0.01" placeholder="25000"></label>
+          <label>U.S. MFN rate % <small>(if known)</small><input name="mfnRateOverride" type="number" min="0" step="0.1"></label>
+        </div>
+        <label class="check"><input type="checkbox" name="whollyObtained"> Wholly obtained or produced in Canada / U.S. / Mexico (e.g. harvested, mined, raised)</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Bill of materials</legend>
+        <div class="table-scroll">
+          <table class="bom">
+            <thead><tr><th>Material</th><th>HS code</th><th>Cost per unit</th><th>Country of origin</th><th></th></tr></thead>
+            <tbody id="bom-rows"></tbody>
+          </table>
+        </div>
+        <button type="button" class="secondary" id="add-row">+ Add material</button>
+      </fieldset>
+
+      <label>Email <small>(optional — subscribers get unlimited checks)</small><input name="email" type="email" placeholder="you@company.ca"></label>
+      <button type="submit" class="primary">Check my product</button>
+    </form>
+
+    <section id="result" hidden aria-live="polite"></section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Advisory estimate only. CUSMAcheck is not a licensed customs broker; confirm with a broker or CBSA/CBP before certifying origin.</p>
+  </footer>
+
+  <template id="row-tpl">
+    <tr>
+      <td><input name="description" placeholder="Steel hinges"></td>
+      <td><input name="hsCode" inputmode="numeric" placeholder="830242"></td>
+      <td><input name="cost" type="number" min="0" step="0.01"></td>
+      <td>
+        <select name="countryOfOrigin">
+          <option value="CA">Canada</option><option value="US">United States</option><option value="MX">Mexico</option>
+          <option value="CN">China</option><option value="DE">Germany</option><option value="JP">Japan</option>
+          <option value="KR">South Korea</option><option value="TW">Taiwan</option><option value="VN">Vietnam</option>
+          <option value="IN">India</option><option value="IT">Italy</option><option value="GB">United Kingdom</option>
+          <option value="XX">Other / unknown</option>
+        </select>
+      </td>
+      <td><button type="button" class="link remove" aria-label="Remove material">✕</button></td>
+    </tr>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>

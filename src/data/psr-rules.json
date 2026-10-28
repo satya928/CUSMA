@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "description": "Product-specific rules of origin (PSRO) for the launch set of HS chapters. Each rule lists one or more options; a good meets the rule if it satisfies ANY option. 'shift' is the tariff classification change every non-originating material must make (chapter = CC, heading = CTH, subheading = CTSH). 'rvc' is the minimum regional value content in percent (tv = transaction value method, nc = net cost method).",
+    "status": "DRAFT - simplified encodings for engine development. Every rule must be checked line by line against CUSMA Annex 4-B (and its chapter-level exceptions) before the app gives verdicts to paying users.",
+    "source": "CUSMA Chapter 4 and Annex 4-B, https://www.international.gc.ca/trade-commerce/trade-agreements-accords-commerciaux/agr-acc/cusma-aceum/text-texte/04.aspx",
+    "verified": false,
+    "lastReviewed": "2026-10-28"
+  },
+  "unsupportedChapters": {
+    "61": "Apparel: yarn-forward rules and tariff preference levels. Route to expert review.",
+    "62": "Apparel: yarn-forward rules and tariff preference levels. Route to expert review.",
+    "63": "Made-up textiles: yarn-forward rules. Route to expert review.",
+    "87": "Vehicles and parts: 75% RVC, labour value content and steel/aluminum purchase rules (Appendix to Annex 4-B). Route to expert review."
+  },
+  "rules": [
+    { "hs": "16", "description": "Preparations of meat or fish", "options": [{ "shift": "chapter", "rvc": null }], "verified": false },
+    { "hs": "19", "description": "Preparations of cereals, flour, starch or milk; bakery products", "options": [{ "shift": "chapter", "rvc": null }], "verified": false },
+    { "hs": "20", "description": "Preparations of vegetables, fruit or nuts", "options": [{ "shift": "chapter", "rvc": null }], "verified": false },
+    { "hs": "21", "description": "Miscellaneous edible preparations", "options": [{ "shift": "heading", "rvc": null }], "verified": false },
+    { "hs": "39", "description": "Plastics and articles thereof", "options": [{ "shift": "heading", "rvc": null }, { "shift": "subheading", "rvc": { "tv": 60, "nc": 50 } }], "verified": false },
+    { "hs": "40", "description": "Rubber and articles thereof", "options": [{ "shift": "heading", "rvc": null }], "verified": false },
+    { "hs": "44", "description": "Wood and articles of wood", "options": [{ "shift": "heading", "rvc": null }], "verified": false },
+    { "hs": "48", "description": "Paper and paperboard; articles of paper pulp", "options": [{ "shift": "heading", "rvc": null }], "verified": false },
+    { "hs": "73", "description": "Articles of iron or steel", "options": [{ "shift": "heading", "rvc": null }, { "shift": "subheading", "rvc": { "tv": 60, "nc": 50 } }], "verified": false },
+    { "hs": "76", "description": "Aluminum and articles thereof", "options": [{ "shift": "heading", "rvc": null }], "verified": false },
+    { "hs": "84", "description": "Machinery and mechanical appliances", "options": [{ "shift": "subheading", "rvc": null }, { "shift": null, "rvc": { "tv": 60, "nc": 50 } }], "verified": false },
+    { "hs": "85", "description": "Electrical machinery and equipment", "options": [{ "shift": "subheading", "rvc": null }, { "shift": null, "rvc": { "tv": 60, "nc": 50 } }], "verified": false },
+    { "hs": "90", "description": "Optical, measuring, medical instruments", "options": [{ "shift": "subheading", "rvc": null }, { "shift": null, "rvc": { "tv": 60, "nc": 50 } }], "verified": false },
+    { "hs": "94", "description": "Furniture; bedding; prefabricated buildings", "options": [{ "shift": "chapter", "rvc": null }, { "shift": "heading", "rvc": { "tv": 60, "nc": 50 } }], "verified": false }
+  ]
+}
